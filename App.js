@@ -7,25 +7,22 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
+import { Header } from 'react-native-elements';
 import { Home } from './home';
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View>
+        <Header
+          leftComponent={{ icon: 'menu', color: '#000' }}
+          centerComponent={{ text: 'Top Movies', style: { color: '#000' } }}
+          rightComponent={{ icon: 'home', color: '#000' }}
+          backgroundColor='#fff'
+        />
         <Home />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});

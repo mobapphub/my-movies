@@ -7,7 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, FlatList, Image, ActivityIndicator } from 'react-native';
+import { Text } from 'react-native-elements';
 
 export class Home extends Component {
 
@@ -50,8 +51,8 @@ export class Home extends Component {
                 data={this.state.dataSource}
                 renderItem={({ item }) =>
                     <View style={styles.item}>
-                        <Text style={styles.titleText}>{item.title}</Text>
-                        <Text style={styles.subtitleText}>Release Date {item.release_date}</Text>
+                        <Text h1 style={styles.titleText}>{item.title}</Text>
+                        <Text style={styles.subtitleText}>Release {item.release_date}</Text>
                         <Image
                             source={{
                                 uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path
@@ -60,7 +61,7 @@ export class Home extends Component {
                         />
                     </View>
                 }
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => item.id.toString()}
             />
         );
     }
@@ -68,15 +69,18 @@ export class Home extends Component {
 
 const styles = StyleSheet.create({
     item: {
-        marginBottom: 10,
+        flex: 1,
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
     },
     titleText: {
         color: 'black',
-        fontSize: 30,
         fontWeight: 'bold',
     },
     subtitleText: {
         fontSize: 18,
-        marginBottom: 5,
+        padding: 5,
     },
 });
