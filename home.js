@@ -7,8 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, Image, ActivityIndicator } from 'react-native';
-import { Text } from 'react-native-elements';
+import { StyleSheet, View, Image, ActivityIndicator, Dimensions } from 'react-native';
+import { Text, Tile } from 'react-native-elements';
+import GridView from 'react-native-super-grid';
+
+let deviceWidth = Dimensions.get('window').width
+let deviceHeight = Dimensions.get('window').height
 
 export class Home extends Component {
 
@@ -47,40 +51,33 @@ export class Home extends Component {
         }
 
         return (
-            <FlatList
-                data={this.state.dataSource}
-                renderItem={({ item }) =>
-                    <View style={styles.item}>
-                        <Text h1 style={styles.titleText}>{item.title}</Text>
-                        <Text style={styles.subtitleText}>Release {item.release_date}</Text>
-                        <Image
-                            source={{
-                                uri: 'https://image.tmdb.org/t/p/w500' + item.poster_path
-                            }}
-                            style={{ width: 500, height: 500 }}
-                        />
-                    </View>
+            <GridView
+                itemDimension={185}
+                items={this.state.dataSource}
+                renderItem={(item) =>
+                    <Tile
+                        imageSrc={{ uri: 'https://image.tmdb.org/t/p/w185' + item.poster_path }}
+                        title={item.title}
+                        titleStyle={styles.titleText}
+                        width={(deviceWidth / 2) - 20}
+                        height={deviceHeight / 2}
+                    >
+                        <View>
+                            <Text style={styles.subtitleText}>Release {item.release_date}</Text>
+                        </View>
+                    </Tile>
                 }
-                keyExtractor={(item, index) => item.id.toString()}
             />
         );
     }
 }
 
 const styles = StyleSheet.create({
-    item: {
-        flex: 1,
-        padding: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF'
-    },
     titleText: {
         color: 'black',
         fontWeight: 'bold',
     },
     subtitleText: {
         fontSize: 18,
-        padding: 5,
     },
 });
