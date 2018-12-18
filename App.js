@@ -9,9 +9,19 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Header } from 'react-native-elements';
-import { Home } from './home';
+import { createDrawerNavigator, createAppContainer } from "react-navigation";
+import { Home } from './screens/home';
+import { MovieDetails } from './screens/movie-details';
 
-export default class App extends Component {
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Top Movies',
+    }
+  }
+
   render() {
     return (
       <View>
@@ -26,3 +36,15 @@ export default class App extends Component {
     );
   }
 }
+
+const MyDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: Home,
+  },
+  Detail: {
+    screen: MovieDetails,
+  },
+});
+
+const MyApp = createAppContainer(MyDrawerNavigator);
+export default MyApp;
