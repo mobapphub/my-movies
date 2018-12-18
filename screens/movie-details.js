@@ -7,9 +7,10 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, ActivityIndicator } from 'react-native';
-import { Text, Header } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { Text, Divider } from 'react-native-elements';
 import Config from '../config'
+import { MainHeader } from '../components/main-header'
 
 export class MovieDetails extends Component {
     static navigationOptions = {
@@ -19,7 +20,10 @@ export class MovieDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true
+            isLoading: true,
+            title: MovieDetails.navigationOptions.title,
+            poster_path: '',
+            overview: '',
         }
     }
 
@@ -34,6 +38,9 @@ export class MovieDetails extends Component {
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson,
+                    title: responseJson.title,
+                    poster_path: responseJson.poster_path,
+                    overview: responseJson.overview,
                 }, function () {
 
                 });
@@ -45,17 +52,12 @@ export class MovieDetails extends Component {
     }
 
     render() {
-        const { navigation } = this.props;
-        const movieId = navigation.getParam('movieId');
-
         if (this.state.isLoading) {
             return (
                 <View style={styles.container}>
-                    <Header
-                        leftComponent={{ icon: 'menu', color: '#000' }}
-                        centerComponent={{ text: MovieDetails.navigationOptions.title, style: { color: '#000' } }}
-                        rightComponent={{ icon: 'home', color: '#000' }}
-                        backgroundColor='#fff'
+                    <MainHeader 
+                        title={this.state.title}
+                        navigation={this.props.navigation}
                     />
                     <ActivityIndicator />
                 </View>
@@ -63,19 +65,36 @@ export class MovieDetails extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <Header
-                    leftComponent={{ icon: 'menu', color: '#000' }}
-                    centerComponent={{ text: MovieDetails.navigationOptions.title, style: { color: '#000' } }}
-                    rightComponent={{ icon: 'home', color: '#000' }}
-                    backgroundColor='#fff'
+            <ScrollView>
+                <MainHeader
+                    title='Movie'
+                    navigation={this.props.navigation}
                 />
-                <Text style={styles.bodyText}>'https://api.themoviedb.org/3/movie/{movieId}?api_key=a4f9abbcf3d616a410e63049322658b9'</Text>
-            </View>
+                <Text style={styles.titleText}>{this.state.title}</Text>
+                <Divider style={{ backgroundColor: '#000' }} />
+                <Image 
+                    source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.poster_path }}
+                    style={{ width: 500, height: 500 }}
+                />
+                <Text style={styles.bodyText}>{this.state.overview}</Text>
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    bodyText: {}
+    titleText: {
+        color: '#000',
+        fontSize: 26,
+        textAlign: 'center',
+        padding: 10
+    },
+    bodyText: {
+        color: '#000',
+        fontSize: 18,
+        textAlign: 'center',
+        padding: 5,
+        paddingTop: 30, 
+        paddingBottom: 30, 
+    }
 });

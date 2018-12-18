@@ -8,9 +8,10 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
-import { Text, Tile, Header } from 'react-native-elements';
+import { Text, Tile } from 'react-native-elements';
 import GridView from 'react-native-super-grid';
 import Config from '../config'
+import { MainHeader } from '../components/main-header'
 
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
@@ -23,7 +24,8 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true
+            isLoading: true,
+            title: Home.navigationOptions.title,
         }
     }
 
@@ -49,11 +51,9 @@ export class Home extends Component {
         if (this.state.isLoading) {
             return (
                 <View style={styles.container}>
-                    <Header
-                        leftComponent={{ icon: 'menu', color: '#000' }}
-                        centerComponent={{ text: Home.navigationOptions.title, style: { color: '#000' } }}
-                        rightComponent={{ icon: 'home', color: '#000' }}
-                        backgroundColor='#fff'
+                    <MainHeader 
+                        title={this.state.title}
+                        navigation={this.props.navigation}
                     />
                     <ActivityIndicator />
                 </View>
@@ -61,12 +61,10 @@ export class Home extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <Header
-                    leftComponent={{ icon: 'menu', color: '#000' }}
-                    centerComponent={{ text: Home.navigationOptions.title, style: { color: '#000' } }}
-                    rightComponent={{ icon: 'home', color: '#000' }}
-                    backgroundColor='#fff'
+            <View>
+                <MainHeader 
+                    title={this.state.title}
+                    navigation={this.props.navigation}
                 />
                 <GridView
                     itemDimension={185}
