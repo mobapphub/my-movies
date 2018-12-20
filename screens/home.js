@@ -9,9 +9,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
 import { Text, Tile } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 import GridView from 'react-native-super-grid';
-import Config from '../config'
-import { MainHeader } from '../components/main-header'
+import Config from '../config';
+import MainHeader from '../components/main-header';
 
 let deviceWidth = Dimensions.get('window').width
 let deviceHeight = Dimensions.get('window').height
@@ -53,7 +54,6 @@ export class Home extends Component {
                 <View style={styles.container}>
                     <MainHeader 
                         title={this.state.title}
-                        navigation={this.props.navigation}
                     />
                     <ActivityIndicator />
                 </View>
@@ -64,7 +64,6 @@ export class Home extends Component {
             <View>
                 <MainHeader 
                     title={this.state.title}
-                    navigation={this.props.navigation}
                 />
                 <GridView
                     itemDimension={185}
@@ -102,3 +101,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 });
+
+export default withNavigation(Home);

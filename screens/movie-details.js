@@ -9,10 +9,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { Text, Divider } from 'react-native-elements';
-import Config from '../config'
-import { MainHeader } from '../components/main-header'
+import { withNavigation } from 'react-navigation';
+import Config from '../config';
+import MainHeader from '../components/main-header';
 
-export class MovieDetails extends Component {
+class MovieDetails extends Component {
     static navigationOptions = {
         title: 'Movie Details',
     };
@@ -21,34 +22,39 @@ export class MovieDetails extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            title: MovieDetails.navigationOptions.title,
-            poster_path: '',
-            overview: '',
         }
+    }
+
+    updateDetailsFromAPI(movieId) {
+        this.setState({
+            isLoading: true,
+        }, function() {
+            return fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=' + Config.THEMOVIEDB_API_KEY)
+                .then((response) => response.json())
+                .then((responseJson) => {
+
+                    this.setState({
+                        isLoading: false,
+                        dataSource: responseJson,
+                    });
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { navigation } = nextProps;
+        const movieId = navigation.getParam('movieId');
+        this.updateDetailsFromAPI(movieId);
     }
 
     componentDidMount() {
         const { navigation } = this.props;
         const movieId = navigation.getParam('movieId');
-
-        return fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=' + Config.THEMOVIEDB_API_KEY)
-            .then((response) => response.json())
-            .then((responseJson) => {
-
-                this.setState({
-                    isLoading: false,
-                    dataSource: responseJson,
-                    title: responseJson.title,
-                    poster_path: responseJson.poster_path,
-                    overview: responseJson.overview,
-                }, function () {
-
-                });
-
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        this.updateDetailsFromAPI(movieId);
     }
 
     render() {
@@ -57,7 +63,6 @@ export class MovieDetails extends Component {
                 <View style={styles.container}>
                     <MainHeader 
                         title={this.state.title}
-                        navigation={this.props.navigation}
                     />
                     <ActivityIndicator />
                 </View>
@@ -68,15 +73,14 @@ export class MovieDetails extends Component {
             <ScrollView>
                 <MainHeader
                     title='Movie'
-                    navigation={this.props.navigation}
                 />
-                <Text style={styles.titleText}>{this.state.title}</Text>
+                <Text style={styles.titleText}>{this.state.dataSource.title}</Text>
                 <Divider style={{ backgroundColor: '#000' }} />
                 <Image 
-                    source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.poster_path }}
+                    source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.dataSource.poster_path }}
                     style={{ width: 500, height: 500 }}
                 />
-                <Text style={styles.bodyText}>{this.state.overview}</Text>
+                <Text style={styles.bodyText}>{this.state.dataSource.overview}</Text>
             </ScrollView>
         );
     }
@@ -98,3 +102,5 @@ const styles = StyleSheet.create({
         paddingBottom: 30, 
     }
 });
+
+export default withNavigation(MovieDetails);

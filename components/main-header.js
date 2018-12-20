@@ -8,8 +8,9 @@
 
 import React, { Component } from 'react';
 import { Icon, Text, Header } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
-export class MainHeader extends Component {
+class MainHeader extends Component {
 
     constructor(props) {
         super(props);
@@ -18,10 +19,12 @@ export class MainHeader extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            title: this.props.title || '',
-        });
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.title !== this.state.title) {
+            this.setState({
+                title: nextProps.title
+            });
+        }
     }
 
     renderHeaderLeftComponent() {
@@ -47,6 +50,10 @@ export class MainHeader extends Component {
     }
 
     renderHeaderRightComponent() {
+        if ('Home' === this.props.navigation.state.key) {
+            return null;
+        }
+        
         return (
             <Icon
                 name='home'
@@ -69,3 +76,5 @@ export class MainHeader extends Component {
         );
     }
 }
+
+export default withNavigation(MainHeader);

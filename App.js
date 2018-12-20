@@ -7,8 +7,8 @@
  */
 
 import { createDrawerNavigator, createAppContainer } from "react-navigation";
-import { Home } from './screens/home';
-import { MovieDetails } from './screens/movie-details';
+import Home from './screens/home';
+import MovieDetails from './screens/movie-details';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
