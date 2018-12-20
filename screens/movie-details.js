@@ -76,10 +76,12 @@ class MovieDetails extends Component {
                 />
                 <Text style={styles.titleText}>{this.state.dataSource.title}</Text>
                 <Divider style={{ backgroundColor: '#000' }} />
-                <Image 
-                    source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.dataSource.poster_path }}
-                    style={{ width: 500, height: 500 }}
-                />
+                <View style={styles.imageContainer}>
+                    <Image 
+                        source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.dataSource.poster_path }}
+                        style={{ width: 500, height: 500 }}
+                    />
+                </View>
                 <Text style={styles.bodyText}>{this.state.dataSource.overview}</Text>
             </ScrollView>
         );
@@ -100,6 +102,10 @@ const styles = StyleSheet.create({
         padding: 5,
         paddingTop: 30, 
         paddingBottom: 30, 
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 
