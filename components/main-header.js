@@ -33,7 +33,7 @@ class MainHeader extends Component {
                 name='menu'
                 color='#000'
                 onPress={() => {
-                    this.props.navigation.navigate('Home');
+                    this.props.navigation.toggleDrawer();
                 }}
             />
         );

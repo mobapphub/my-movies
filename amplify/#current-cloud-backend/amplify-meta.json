@@ -1,0 +1,35 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "mymovies-20181221135406-authRole",
+			"UnauthRoleArn": "arn:aws:iam::577048226237:role/mymovies-20181221135406-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::577048226237:role/mymovies-20181221135406-authRole",
+			"Region": "ap-southeast-2",
+			"DeploymentBucketName": "mymovies-20181221135406-deployment",
+			"UnauthRoleName": "mymovies-20181221135406-unauthRole",
+			"StackName": "mymovies-20181221135406",
+			"StackId": "arn:aws:cloudformation:ap-southeast-2:577048226237:stack/mymovies-20181221135406/ae93e130-04cb-11e9-b55e-06ec3aebdaac"
+		}
+	},
+	"auth": {
+		"cognitoc9198834": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/mymovies-20181221135406-deployment/amplify-cfn-templates/auth/cognitoc9198834-cloudformation-template.yml",
+				"logicalId": "authcognitoc9198834"
+			},
+			"lastPushTimeStamp": "2018-12-21T03:05:18.685Z",
+			"output": {
+				"AppClientSecret": "10graho7djlv71jqm2i3fs7oqrm9vscujq84nptf3nq45lstg6u4",
+				"UserPoolId": "ap-southeast-2_n9VQZIETG",
+				"AppClientIDWeb": "6d40glujconulk9sk3opad18bi",
+				"AppClientID": "68mtn5us6ea9cdrhkcajkiqth4",
+				"IdentityPoolId": "ap-southeast-2:bd2d67d3-1680-4d34-af49-267d0b34bbd4",
+				"IdentityPoolName": "cognitoc9198834_identitypool_c9198834",
+				"UserPoolName": "cognitoc9198834_userpool_c9198834"
+			},
+			"lastPushDirHash": "ApYIyElvXkvG5rQ++iSB7UGxVH8="
+		}
+	}
+}
