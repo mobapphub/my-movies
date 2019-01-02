@@ -67,7 +67,7 @@ export class Home extends Component {
                     title={this.state.title}
                 />
                 <GridView
-                    itemDimension={185}
+                    itemDimension={130}
                     items={this.state.dataSource}
                     renderItem={(item) =>
                         <Tile
