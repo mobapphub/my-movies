@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ActivityIndicator, Dimensions } from 'react-native';
 import { Text, Tile } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, SafeAreaView } from 'react-navigation';
 import GridView from 'react-native-super-grid';
 import Config from '../config';
 import MainHeader from '../components/main-header';
@@ -20,6 +20,7 @@ let deviceHeight = Dimensions.get('window').height
 export class Home extends Component {
     static navigationOptions = {
         title: 'Top Movies',
+        drawerLabel: 'Home',
     };
 
     constructor(props) {
@@ -51,22 +52,22 @@ export class Home extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <View style={styles.container}>
+                <SafeAreaView style={styles.container}>
                     <MainHeader 
                         title={this.state.title}
                     />
                     <ActivityIndicator />
-                </View>
+                </SafeAreaView>
             )
         }
 
         return (
-            <View>
+            <SafeAreaView>
                 <MainHeader 
                     title={this.state.title}
                 />
                 <GridView
-                    itemDimension={185}
+                    itemDimension={130}
                     items={this.state.dataSource}
                     renderItem={(item) =>
                         <Tile
@@ -87,7 +88,7 @@ export class Home extends Component {
                         </Tile>
                     }
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }

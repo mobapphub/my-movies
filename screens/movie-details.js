@@ -9,13 +9,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { Text, Divider } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, SafeAreaView } from 'react-navigation';
 import Config from '../config';
 import MainHeader from '../components/main-header';
 
 class MovieDetails extends Component {
     static navigationOptions = {
         title: 'Movie Details',
+        drawerLabel: () => null,
     };
 
     constructor(props) {
@@ -71,18 +72,20 @@ class MovieDetails extends Component {
 
         return (
             <ScrollView>
-                <MainHeader
-                    title='Movie'
-                />
-                <Text style={styles.titleText}>{this.state.dataSource.title}</Text>
-                <Divider style={{ backgroundColor: '#000' }} />
-                <View style={styles.imageContainer}>
-                    <Image 
-                        source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.dataSource.poster_path }}
-                        style={{ width: 500, height: 500 }}
+                <SafeAreaView>
+                    <MainHeader
+                        title='Movie'
                     />
-                </View>
-                <Text style={styles.bodyText}>{this.state.dataSource.overview}</Text>
+                    <Text style={styles.titleText}>{this.state.dataSource.title}</Text>
+                    <Divider style={{ backgroundColor: '#000' }} />
+                    <View style={styles.imageContainer}>
+                        <Image 
+                            source={{ uri: 'https://image.tmdb.org/t/p/w500' + this.state.dataSource.poster_path }}
+                            style={{ width: 500, height: 500 }}
+                        />
+                    </View>
+                    <Text style={styles.bodyText}>{this.state.dataSource.overview}</Text>
+                </SafeAreaView>
             </ScrollView>
         );
     }
