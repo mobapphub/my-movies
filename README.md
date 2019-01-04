@@ -21,9 +21,16 @@ React Native Demo App
 * Start Android emulator from android studio first
 * Run `react-native run-android`
 
+* Or directly run the script under project folder
+* Run `./scripts/android-run.sh`
+
+
 ## For iOS
 
 * Start iOS emulator from Xcode first
 * Run `react-native run-ios`
+
+* Or directly run the script under project folder
+* Run `./scripts/ios-run.sh`
 
 ;p
